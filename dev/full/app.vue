@@ -10,7 +10,7 @@
       <div class="control-buttons text-center">
         <button @click="newModel" class="btn btn-default new"> <i class="fa fa-plus"></i>New</button>
         <button @click="saveModel" class="btn btn-primary save"> <i class="fa fa-floppy-o"></i>Save<i v-if="showWarning()" class="fa fa-warning"></i></button>
-        <button @click="deleteModel" class="btn btn-danger delete"> <i class="fa fa-trash"></i>Delete</button>
+        <button @click="deleteModel" class="btn btn-danger delete"> <i class="fa fa-trash"></i>Delete sd</button>
       </div>
       <div class="errors text-center">
         <div v-for="(item, index) in validationErrors" track-by="index" class="alert alert-danger">{{ item.field.label}}: <strong>{{ item.error }}</strong></div>

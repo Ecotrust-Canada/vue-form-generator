@@ -254,7 +254,8 @@ module.exports = {
 			rows: 4,
 			validator: validators.string
 		}, {
-			type: "text",
+			type: "input",
+			inputType: "text",
 			label: "Field with buttons",
 			model: "address.geo",
 			disabled: false,
@@ -792,14 +793,69 @@ module.exports = {
 		{
 			type: "input",
 			inputType: "hidden",
-			label: "--- CUSTOM FIELDS ---",
+			label: "--- CUSTOM FIELDS 1 ---",
 			model: "",
 			styleClasses: "alert alert-info"
 		}, {
 			type: "awesome",
 			label: "Awesome (custom field)",
 			model: "userName"
-		},
+		}, {
+			"type": "checklist",
+			"label": "Skills",
+			"model": "skills",
+			"multi": true,
+			"required": true,
+			"multiSelect": true,
+			"values": [
+			  "HTML5",
+			  "Javascript",
+			  "CSS3",
+			  "CoffeeScript",
+			  "AngularJS",
+			  "ReactJS",
+			  "VueJS"
+			]
+      	}, {
+        "type": "radioButtons",
+        "label": "my RadioButtons",
+        "model": "friend",
+        "required": true,
+        "activeColor": "info",
+        "buttonSize": "large",
+        "validator": validators.string,
+        "values": [
+          "James",
+          "Nadia",
+          "Paul",
+          "Christelle",
+          "Marc",
+          "Marie",
+          "Jace",
+          "Kaia"
+        ]
+      }, {
+        "type": "radioButtons",
+        "label": "my multiRadioButtons",
+        "model": "multifriend",
+        "multiSelect": true,
+        "required": true,
+        "activeColor": "info",
+        "buttonSize": "large",
+        "min": 2,
+		"max": 4,
+        "validator": validators.array,
+        "values": [
+          "James",
+          "Nadia",
+          "Paul",
+          "Christelle",
+          "Marc",
+          "Marie",
+          "Jace",
+          "Kaia"
+        ]
+      },
 
 		/****************/
 		/*  DEPRECATED  */

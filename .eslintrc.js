@@ -19,10 +19,6 @@ module.exports = {
         "html"
     ],
     "rules": {
-        "indent": [
-            "warn",
-            "tab"
-        ],
         "quotes": [
             "warn",
             "double"

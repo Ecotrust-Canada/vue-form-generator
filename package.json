@@ -9,7 +9,7 @@
     "build:core": "cross-env FULL_BUNDLE=false webpack --progress --config webpack.build.config.js --define process.env.FULL_BUNDLE=false --output-filename=vfg-core.js",
     "build:full": "cross-env FULL_BUNDLE=true  webpack --progress --config webpack.build.config.js --define process.env.FULL_BUNDLE=true",
     "build": "npm run build:core && npm run build:full",
-    "dev": "webpack-dev-server --config webpack.dev.config.js --inline --hot --content-base dev/",
+    "dev": "webpack-dev-server --config webpack.dev.config.js --inline --hot --host 0.0.0.0 --port 8080 --content-base dev/",
     "lint": "eslint --ext=.js,.vue src test/unit/specs",
     "coverall": "cat ./test/unit/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "coverage": "npm run test && npm run coverall",
@@ -102,6 +102,7 @@
   },
   "dependencies": {
     "babel-runtime": "6.23.0",
-    "vue": "2.1.10"
+    "vue": "2.1.10",
+    "vue-multiselect": "git+https://github.com/monterail/vue-multiselect.git#v2.0.0-beta.13"
   }
 }
