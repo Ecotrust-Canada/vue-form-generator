@@ -1,19 +1,19 @@
 <template>
-    <p class="control has-addons" style="display: block;" :disabled="disabled">
+    <p :class="wrapperClasses" :disabled="disabled">
         <a v-for="item in items" class="button"
                :disabled="disabled"
                :name="id"
                @click="onSelection($event, item)"
                :value="getItemValue(item)"
                :checked="getItemIsChecked(item)"
-               v-bind:class="classes(item)">
+               :class="buttonClasses(item)">
             <span>{{ getItemName(item) }}</span>
         </a>
     </p>
 </template>
 
 <script>
-    import {isObject, isNil} from "lodash";
+    import {isObject, isNil, isString} from "lodash";
     import abstractField from "../abstractField";
 
     export default {
@@ -29,6 +29,13 @@
             },
             id(){
                 return this.schema.model;
+            },
+            wrapperClasses: function() {
+                if(isString(this.schema.wrapperClass)) {
+                    return this.schema.wrapperClass;
+                } else {
+                    return "control has-addons";
+                }
             }
         },
 
@@ -99,117 +106,27 @@
 
 				return item;
 			},
-            classes(item) {
-                let classes = [];
+            buttonClasses(item) {
+                // this is a method instead of computed because checked state needs evaluated
+                let classes = "";
 
-                if(this.getItemIsChecked(item)) {
-                    classes.push('is-active');
-
-                    if (this.schema.activeColor) {
-                        switch (this.schema.activeColor) {
-                            case 'primary':
-                                classes.push('is-primary');
-                                break;
-                            case 'info':
-                                classes.push('is-info');
-                                break;
-                            case 'success':
-                                classes.push('is-success');
-                                break;
-                            case 'warning':
-                                classes.push('is-warning');
-                                break;
-                            case 'danger':
-                                classes.push('is-danger');
-                                break;
-                            case 'white':
-                                classes.push('is-white');
-                                break;
-                            case 'light':
-                                classes.push('is-light');
-                                break;
-                            case 'dark':
-                                classes.push('is-dark');
-                                break;
-                            case 'black':
-                                classes.push('is-black');
-                                break;
-                            case 'link':
-                                classes.push('is-link');
-                                break;
-
-                            default:
-                                classes.push('is-info');
-                                break;
-                        }
+                if (this.getItemIsChecked(item)) {
+                    if(isString(this.schema.activeClasses)) {
+                        classes = this.schema.activeClasses;
+                    } else {
+                        classes = "is-info is-active";
                     }
-                } else {
-                    if (this.schema.inactiveColor && this.schema.inactiveColor != this.schema.activeColor) {
-                        switch (this.schema.inactiveColor) {
-                            case 'primary':
-                                classes.push('is-primary');
-                                break;
-                            case 'info':
-                                classes.push('is-info');
-                                break;
-                            case 'success':
-                                classes.push('is-success');
-                                break;
-                            case 'warning':
-                                classes.push('is-warning');
-                                break;
-                            case 'danger':
-                                classes.push('is-danger');
-                                break;
-                            case 'white':
-                                classes.push('is-white');
-                                break;
-                            case 'light':
-                                classes.push('is-light');
-                                break;
-                            case 'dark':
-                                classes.push('is-dark');
-                                break;
-                            case 'black':
-                                classes.push('is-black');
-                                break;
-                            case 'link':
-                                classes.push('is-link');
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
+                } else if (isString(this.schema.inactiveClasses)) {
+                    classes = this.schema.inactiveClasses;
                 }
 
-                if (this.schema.buttonSize) {
-                    switch (this.schema.buttonSize) {
-                        case 'small':
-                            classes.push('is-small');
-                            break;
-                        case 'medium':
-                            classes.push('is-medium');
-                            break;
-                        case 'large':
-                            classes.push('is-large');
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-
-                if (this.schema.buttonStyle) {
-                    if(this.schema.buttonStyle == 'outlined')
-                        classes.push('is-outlined');
-
-                    if(this.schema.buttonStyle == 'inverted')
-                        classes.push('is-inverted');
+                // additional classes such as size and style
+                if (isString(this.schema.buttonClasses)) {
+                    classes += " " + this.schema.buttonClasses;
                 }
 
                 //this.$log(classes);
-                return classes;
+                return classes.trim();
             }
         }
     };
